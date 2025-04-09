@@ -6,6 +6,8 @@ pip install flash-attn --no-build-isolation
 pip install --upgrade transformers
 pip uninstall deepspeed -y
 pip install deepspeed==0.15.4
+pip uninstall accelerate -y 
+pip install accelerate==0.34.2
 pip install gdown
 pip install git+https://github.com/huggingface/trl.git
 git config --global user.email "nganngants@gmail.com"

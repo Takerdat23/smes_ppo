@@ -117,6 +117,8 @@ if __name__ == "__main__":
     ################
     # Training
     ################
+    training_args.kl_coef= 1.12
+    
     trainer = PPOTrainer(
         args=training_args,
         processing_class=tokenizer,
