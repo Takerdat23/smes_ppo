@@ -7,6 +7,9 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer, HfAr
 from reward_training.prepare_dataset import load_reward_data
 import deepspeed
 
+import os
+os.environ["WANDB_DISABLED"] = "true"
+
 from trl import (
     ModelConfig,
     RewardConfig,
@@ -66,8 +69,8 @@ if __name__ == "__main__":
     # Load dataset
     ##############
     # dataset = load_dataset(script_args.dataset_name, name=script_args.dataset_config)
-    dataset = load_reward_data("reward_data_train_cut.json")
-    eval_dataset = load_reward_data("reward_data_train_cut.json")
+    dataset = load_reward_data(script_args.dataset_name)
+    eval_dataset = load_reward_data(script_args.dataset_name)
     print(dataset)
 
     ##########

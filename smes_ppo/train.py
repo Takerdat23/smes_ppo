@@ -10,6 +10,9 @@ from transformers import (
     HfArgumentParser,
 )
 
+import os
+os.environ["WANDB_DISABLED"] = "true"
+
 from trl import (
     ModelConfig,
     PPOConfig,
@@ -73,8 +76,8 @@ if __name__ == "__main__":
     ################
     # Dataset
     ################
-    train_dataset = get_dataset("jsonl_TrainValMerge_fullVidDescHis_10vidDescCurr_RL_max_emotion_max_strategy/test.jsonl")
-    eval_dataset = get_dataset("jsonl_TrainValMerge_fullVidDescHis_10vidDescCurr_RL_max_emotion_max_strategy/test.jsonl")
+    train_dataset = get_dataset(script_args.dataset_name)
+    eval_dataset = get_dataset(script_args.dataset_name)
     # dataset = load_dataset(
     #     script_args.dataset_name, name=script_args.dataset_config, split=script_args.dataset_train_split
     # )
@@ -118,6 +121,8 @@ if __name__ == "__main__":
     # Training
     ################
     training_args.kl_coef= 1.12
+    training_args.report_to= None
+    # training_args.save_steps = 10
     
     trainer = PPOTrainer(
         args=training_args,

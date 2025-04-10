@@ -1,4 +1,3 @@
-
 export PYTHONPATH=$PYTHONPATH:.
 NUM_GPUS=2
 NUM_NODES=1
@@ -13,10 +12,11 @@ torchrun \
     --master_addr=$MASTER_ADDR \
     --master_port=$MASTER_PORT \
     reward_training/train.py \
+    --deepspeed scripts/ds_config.json \
     --model_name_or_path Qwen/Qwen2-0.5B-Instruct \
-    --dataset_name ./data/reward_data_train_cut.json \
+    --dataset_name reward_train.json \
     --output_dir Qwen2-0.5B-Reward \
-    --per_device_train_batch_size 2 \
+    --per_device_train_batch_size 1 \
     --num_train_epochs 10 \
     --gradient_checkpointing True \
     --learning_rate 2.5e-5 \
@@ -24,6 +24,7 @@ torchrun \
     --eval_strategy steps \
     --eval_steps 50 \
     --max_length 512 \
-    --ddp_find_unused_parameters False \
-    --deepspeed scripts/ds_config.json
+    --save_steps 10 \
+    --ddp_find_unused_parameters False 
+    
 
